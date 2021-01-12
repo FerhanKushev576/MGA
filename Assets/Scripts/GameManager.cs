@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     PlayerMovement _playerMovement;
     [SerializeField] private float speedIncreasePerPoint = 0.1f;
     public float tileSpeed;
-
+    [SerializeField] Text scoreText;
     
     #region Singleton
     private static GameManager _instance;
@@ -54,8 +54,6 @@ public class GameManager : MonoBehaviour
         // Should probably remove if we want a game over screen, and trigger it through the UI. Would be cleaner
         _playerMovement.PlayerDied += () => Invoke("Restart",2);
     }
-
-    [SerializeField] Text scoreText;
     
     public void IncrementScore()
     {

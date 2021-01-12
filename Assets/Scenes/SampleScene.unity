@@ -629,6 +629,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundTile: {fileID: 3699299265967056219, guid: 5b8636854572a954e80adc9cdf7d583f,
     type: 3}
+  mapSize: 15
+  startingEmptyTiles: 3
 --- !u!4 &1800049122
 Transform:
   m_ObjectHideFlags: 0

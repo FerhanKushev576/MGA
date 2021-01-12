@@ -8,9 +8,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     public float speed = 5;
     [SerializeField] Rigidbody rb;
+    [SerializeField] private float jumpForce;
 
     float _horizontalInput;
+    
     private static readonly int Fall = Animator.StringToHash("Fall");
+    private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int RunSpeed = Animator.StringToHash("RunSpeed");
 
     public delegate void PlayerDiedDelegate();
 
@@ -30,7 +34,14 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _horizontalInput = Input.GetAxis("Horizontal");
-        _animator.SetFloat("RunSpeed", speed/5);
+        var doJump = Input.GetButtonDown("Jump") && Physics.Raycast(transform.position, Vector3.down,0.1f,~8);
+        if (doJump)
+        {
+            rb.AddForce(Vector3.up*jumpForce,ForceMode.VelocityChange);
+            _animator.SetTrigger(Jump);
+        }
+
+        _animator.SetFloat(RunSpeed, speed/5);
     }
 
     public void Die()

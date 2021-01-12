@@ -4,49 +4,46 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    bool alive = true;
-    private Animator animator;
+    bool _alive = true;
+    private Animator _animator;
     public float speed = 5;
     [SerializeField] Rigidbody rb;
 
-    float horizontalInput;
-    [SerializeField] float horizontalMultiplier = 2;
+    float _horizontalInput;
+    private static readonly int Fall = Animator.StringToHash("Fall");
 
-    public float speedIncreasePerPoint = 0.1f;
+    public delegate void PlayerDiedDelegate();
+
+    public event PlayerDiedDelegate PlayerDied;
 
     private void FixedUpdate()
     {
-        if (!alive) return;
+        if (!_alive) return;
 
-        Vector3 forwardMove = transform.forward * speed * Time.fixedDeltaTime;
-        Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.fixedDeltaTime * horizontalMultiplier;
-        rb.MovePosition(rb.position + forwardMove + horizontalMove);
+        Vector3 horizontalMove = transform.right * (_horizontalInput * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + horizontalMove);
     }
-    private void Start()
+    private void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
     private void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-
-        if (transform.position.y < -3)
-        {
-            Die();
-        }
-        animator.SetFloat("Speed", rb.velocity.x);
-        animator.SetBool("Alive", alive);
+        _horizontalInput = Input.GetAxis("Horizontal");
+        _animator.SetFloat("RunSpeed", speed/5);
     }
 
     public void Die()
     {
-        alive = false;
-        // Restart the game
-        Invoke("Restart", 2);
+        _alive = false; 
+        _animator.SetTrigger(Fall);
+        PlayerDied?.Invoke();
     }
 
-    void Restart()
+    public void IncreaseDifficulty(float speedDelta)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        speed += speedDelta;
     }
+
+    
 }

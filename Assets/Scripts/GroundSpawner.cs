@@ -4,32 +4,25 @@ public class GroundSpawner : MonoBehaviour
 {
 
     [SerializeField] GameObject groundTile;
-    Vector3 nextSpawnPoint;
 
-    public void SpawnTile(bool spawnItems)
-    {
-        GameObject temp = Instantiate(groundTile, nextSpawnPoint, Quaternion.identity);
-        nextSpawnPoint = temp.transform.GetChild(1).transform.position;
+    [SerializeField] private int mapSize = 15;
 
-        if (spawnItems)
-        {
-            temp.GetComponent<GroundTile>().SpawnObstacle();
-            temp.GetComponent<GroundTile>().SpawnCoins();
-        }
-    }
+    [SerializeField] private int startingEmptyTiles = 3;
+    // How big is a tile in unity measurements (could make it dynamic, but I'm lazy so... :D
+    const int tileSize = 10;
 
     private void Start()
     {
-        for (int i = 0; i < 15; i++)
+        transform.position = Vector3.forward*(mapSize*tileSize-tileSize);
+        
+        var nextSpawnPoint = transform.position;
+        for (var i = 0; i < mapSize; i++)
         {
-            if (i < 3)
-            {
-                SpawnTile(false);
-            }
-            else
-            {
-                SpawnTile(true);
-            }
+            var tile = Instantiate(groundTile, nextSpawnPoint, Quaternion.identity).GetComponent<GroundTile>();
+            tile.resetPosition = transform.position;
+            nextSpawnPoint += Vector3.back*tileSize;
+            if(i < mapSize-startingEmptyTiles)
+                tile.Populate();
         }
     }
 }

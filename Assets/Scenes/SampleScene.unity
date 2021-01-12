@@ -226,7 +226,7 @@ GameObject:
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -242,8 +242,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ff03e5ee019b4479e1ecf60f689942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedIncreasePerPoint: 0.1
+  tileSpeed: 10
   scoreText: {fileID: 1545254352}
-  playerMovement: {fileID: 919132149219009308}
 --- !u!4 &920419393
 Transform:
   m_ObjectHideFlags: 0
@@ -252,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920419391}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.278435, y: -10.774919, z: 95.287346}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -420,7 +421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfd235e598018f4da999dd952dc9ab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 543450653677549987}
 --- !u!1 &1545254350
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +611,7 @@ GameObject:
   m_Layer: 0
   m_Name: GroundSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -637,30 +637,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800049120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 140}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &543450653677549987 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3497841177428203891, guid: 509d2eb2c461e944090a884bc145ed33,
-    type: 3}
-  m_PrefabInstance: {fileID: 3963288041768935632}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &919132149219009308 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 919132149219009308, guid: 509d2eb2c461e944090a884bc145ed33,
-    type: 3}
-  m_PrefabInstance: {fileID: 3963288041768935632}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 740fb91a3be631f42a1af072eb94a9c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3963288041768935632
 PrefabInstance:
   m_ObjectHideFlags: 0

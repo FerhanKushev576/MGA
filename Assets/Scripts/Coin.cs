@@ -16,21 +16,16 @@ public class Coin : MonoBehaviour
         }
 
         // Check that the object we collided with is the player
-        if (other.gameObject.name != "Fox")
+        if (!other.gameObject.CompareTag("Player"))
         {
             return;
         }
 
         // Add to the player's score
-        GameManager.inst.IncrementScore();
+        GameManager.Instance.IncrementScore();
 
         // Destroy this coin object
         Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-
     }
 
     private void Update()

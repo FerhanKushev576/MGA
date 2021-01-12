@@ -1,57 +1,68 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GroundTile : MonoBehaviour
 {
 
-    GroundSpawner groundSpawner;
+    public Vector3 resetPosition;
     [SerializeField] GameObject coinPrefab;
     [SerializeField] GameObject obstaclePrefab;
 
-    private void Start()
+    private List<GameObject> _population = new List<GameObject>();
+    private Bounds _bounds;
+
+    private void Awake()
     {
-        groundSpawner = GameObject.FindObjectOfType<GroundSpawner>();
+        _bounds = GetComponent<Collider>().bounds;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void Update()
     {
-        groundSpawner.SpawnTile(true);
-        Destroy(gameObject, 2);
+        transform.position += Vector3.back * (Time.deltaTime * GameManager.Instance.tileSpeed);
+        
+        if (!(transform.position.z < -10f)) return;
+        
+        transform.position = resetPosition;
+        _population.ForEach(Destroy);
+        _population.Clear();
+        Populate();
     }
 
-    public void SpawnObstacle()
+    public void Populate()
+    {
+        SpawnCoins();
+        SpawnObstacle();
+    }
+
+    void SpawnObstacle()
     {
         // Choose a random point to spawn the obstacle
-        int obstacleSpawnIndex = Random.Range(2, 5);
-        Transform spawnPoint = transform.GetChild(obstacleSpawnIndex).transform;
+        var obstacleSpawnIndex = Random.Range(2, 5);
+        var spawnPoint = transform.GetChild(obstacleSpawnIndex).transform;
 
         // Spawn the obstace at the position
-        Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform);
+        _population.Add(Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform));
     }
 
 
-    public void SpawnCoins()
+    void SpawnCoins()
     {
-        int coinsToSpawn = 5;
-        for (int i = 0; i < coinsToSpawn; i++)
+        var coinsToSpawn = Random.Range(0,6);
+        for (var i = 0; i < coinsToSpawn; i++)
         {
-            GameObject temp = Instantiate(coinPrefab, transform);
-            temp.transform.position = GetRandomPointInCollider(GetComponent<Collider>());
+            _population.Add(Instantiate(coinPrefab,GetRandomPointOnTile(), Quaternion.identity, transform));
         }
     }
 
-    Vector3 GetRandomPointInCollider(Collider collider)
+    private Vector3 GetRandomPointOnTile()
     {
-        Vector3 point = new Vector3(
-            Random.Range(collider.bounds.min.x, collider.bounds.max.x),
-            Random.Range(collider.bounds.min.y, collider.bounds.max.y),
-            Random.Range(collider.bounds.min.z, collider.bounds.max.z)
-            );
-        if (point != collider.ClosestPoint(point))
-        {
-            point = GetRandomPointInCollider(collider);
-        }
-
-        point.y = 1;
+        var point = transform.position + new Vector3(
+            Random.Range(-_bounds.extents.x, _bounds.extents.x),
+            1,
+            Random.Range(-_bounds.extents.z, _bounds.extents.z));
+        
         return point;
     }
 }

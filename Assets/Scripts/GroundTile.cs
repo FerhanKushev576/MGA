@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Pixelplacement;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,15 +14,18 @@ public class GroundTile : MonoBehaviour
 
     private List<GameObject> _population = new List<GameObject>();
     private Bounds _bounds;
-
+    private float speed;
+    
     private void Awake()
     {
         _bounds = GetComponent<Collider>().bounds;
+        speed = GameSettings.Instance.gameSettings.tileSpeed;
+        FindObjectOfType<PlayerMovement>().PlayerDied += () => Tween.Value(speed,0,(f => speed = f),2f,0);
     }
 
     private void Update()
     {
-        transform.position += Vector3.back * (Time.deltaTime * GameSettings.Instance.gameSettings.tileSpeed);
+        transform.position += Vector3.back * (Time.deltaTime * speed);
         
         if (!(transform.position.z < -10f)) return;
         

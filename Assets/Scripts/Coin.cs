@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Pixelplacement;
 
 public class Coin : MonoBehaviour
 {
 
     [SerializeField] float turnSpeed = 90f;
+
+    [SerializeField] private AnimationCurve disappearAnimCurve;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,12 +27,11 @@ public class Coin : MonoBehaviour
         // Add to the player's score
         FindObjectOfType<GameManager>().IncrementScore();
 
-        // Destroy this coin object
-        Destroy(gameObject);
+        Tween.LocalScale(transform, Vector3.zero, 0.3f, 0, disappearAnimCurve, completeCallback: () => Destroy(gameObject));
     }
 
     private void Update()
     {
-        transform.Rotate(0, 0, turnSpeed * Time.deltaTime);
+        transform.Rotate(0,  turnSpeed * Time.deltaTime,0);
     }
 }

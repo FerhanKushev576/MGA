@@ -8,7 +8,8 @@ public class GroundTile : MonoBehaviour
 
     public Vector3 resetPosition;
     [SerializeField] GameObject coinPrefab;
-    [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] GameObject[] obstaclePrefab;
+    [SerializeField] private List<Transform> obstacleSpawnLocations;
 
     private List<GameObject> _population = new List<GameObject>();
     private Bounds _bounds;
@@ -39,11 +40,11 @@ public class GroundTile : MonoBehaviour
     void SpawnObstacle()
     {
         // Choose a random point to spawn the obstacle
-        var obstacleSpawnIndex = Random.Range(2, 5);
-        var spawnPoint = transform.GetChild(obstacleSpawnIndex).transform;
+        var obstacleSpawnIndex = Random.Range(1, obstacleSpawnLocations.Count);
+        var spawnPoint = obstacleSpawnLocations[obstacleSpawnIndex];
 
         // Spawn the obstace at the position
-        _population.Add(Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform));
+        _population.Add(Instantiate(obstaclePrefab[Random.Range(0,obstaclePrefab.Length)], spawnPoint.position, Quaternion.identity, transform));
     }
 
 

@@ -1,2 +1,3 @@
 ----GORDON----
 Taking over project, refactoring, added jump: 2hrs (12.01.)
+Added external assets (Scenery, Tween), level spawning changed, Centralized game settings in SO: 3hrs (13.01)

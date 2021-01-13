@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   speedIncreasePerPoint: 0.1
-  tileSpeed: 0
+  tileSpeed: 10
   startingEmptyTiles: 3
   mapSize: 15
-  jumpForce: 0
-  horizontalSpeed: 0
+  jumpForce: 1
+  horizontalSpeed: 5

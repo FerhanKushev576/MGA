@@ -16,5 +16,5 @@ MonoBehaviour:
   tileSpeed: 10
   startingEmptyTiles: 3
   mapSize: 15
-  jumpForce: 1
+  jumpForce: 5
   horizontalSpeed: 5

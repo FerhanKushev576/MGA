@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3257980735315217740}
   - component: {fileID: 1086556317112976446}
   - component: {fileID: 4597182871206516454}
+  - component: {fileID: 7752902623322401341}
   m_Layer: 0
   m_Name: Obstacle_CenteredPivot
   m_TagString: Untagged
@@ -57,11 +58,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b5c8e467881694c9b6475c62e101eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7752902623322401341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5538209252483200393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe09fd6e34da77840b297c5997f89c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   possibleMeshes:
   - {fileID: 1689892608009186, guid: 6fc2010b5899cfd488a0ddf205679e2b, type: 3}
   - {fileID: 1290125285081394, guid: 491dc122236ad9749a046177ea69736d, type: 3}
   - {fileID: 1553163231892768, guid: 0fd5be61d8c00de419d45d6bf745a69c, type: 3}
   - {fileID: 1994015782226202, guid: dc9954dcaaaee02409e17bacb3dcc453, type: 3}
+  - {fileID: 1019362320417226, guid: 9f21020355643c74c88002634abcdabd, type: 3}
   - {fileID: 1678841851965742, guid: 144403e0e442d2a448335e0c845d665b, type: 3}
   - {fileID: 1361181076786324, guid: 388d2ede35ec91345943f17a010818fc, type: 3}
   - {fileID: 1974105250760466, guid: bbb972e8372282f4093c9484693385fd, type: 3}

@@ -1,5 +1,4 @@
-﻿using UnityEngine.SceneManagement;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,8 +23,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_alive) return;
 
-        Vector3 horizontalMove = transform.right * (_horizontalInput * _speed * Time.fixedDeltaTime);
-        rb.MovePosition(rb.position + horizontalMove);
+        var horizontalMove = transform.right * (_horizontalInput * _speed * Time.fixedDeltaTime);
+        horizontalMove += rb.position;
+        horizontalMove.x = Mathf.Clamp(horizontalMove.x, -5, 5);
+        rb.MovePosition(horizontalMove);
     }
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _horizontalInput = Input.GetAxis("Horizontal");
+
         var doJump = Input.GetButtonDown("Jump") && Physics.Raycast(transform.position, Vector3.down,0.1f,~8);
         if (doJump)
         {

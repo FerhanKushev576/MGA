@@ -10,6 +10,7 @@ public class GroundTile : MonoBehaviour
     [SerializeField] GameObject coinPrefab;
     [SerializeField] GameObject[] obstaclePrefab;
     [SerializeField] private List<Transform> obstacleSpawnLocations;
+    [SerializeField] private List<RandomMeshAtStart> scenerySpawners;
 
     private List<GameObject> _population = new List<GameObject>();
     private Bounds _bounds;
@@ -35,6 +36,10 @@ public class GroundTile : MonoBehaviour
     {
         SpawnCoins();
         SpawnObstacle();
+        foreach (var scenerySpawner in scenerySpawners)
+        {
+            scenerySpawner.Spawn();
+        }
     }
 
     void SpawnObstacle()

@@ -22,7 +22,7 @@ public class Coin : MonoBehaviour
         }
 
         // Add to the player's score
-        GameManager.Instance.IncrementScore();
+        FindObjectOfType<GameManager>().IncrementScore();
 
         // Destroy this coin object
         Destroy(gameObject);

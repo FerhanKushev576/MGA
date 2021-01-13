@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
 
     bool _alive = true;
     private Animator _animator;
-    public float speed = 5;
     [SerializeField] Rigidbody rb;
-    [SerializeField] private float jumpForce;
+    private float _speed = 5;
+    private float _jumpForce;
 
     float _horizontalInput;
     
@@ -24,12 +24,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_alive) return;
 
-        Vector3 horizontalMove = transform.right * (_horizontalInput * speed * Time.fixedDeltaTime);
+        Vector3 horizontalMove = transform.right * (_horizontalInput * _speed * Time.fixedDeltaTime);
         rb.MovePosition(rb.position + horizontalMove);
     }
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _speed = GameSettings.Instance.gameSettings.horizontalSpeed;
+        _jumpForce = GameSettings.Instance.gameSettings.jumpForce;
     }
     private void Update()
     {
@@ -37,11 +39,11 @@ public class PlayerMovement : MonoBehaviour
         var doJump = Input.GetButtonDown("Jump") && Physics.Raycast(transform.position, Vector3.down,0.1f,~8);
         if (doJump)
         {
-            rb.AddForce(Vector3.up*jumpForce,ForceMode.VelocityChange);
+            rb.AddForce(Vector3.up*_jumpForce,ForceMode.VelocityChange);
             _animator.SetTrigger(Jump);
         }
 
-        _animator.SetFloat(RunSpeed, speed/5);
+        _animator.SetFloat(RunSpeed, _speed/5);
     }
 
     public void Die()
@@ -53,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void IncreaseDifficulty(float speedDelta)
     {
-        speed += speedDelta;
+        _speed += speedDelta;
     }
 
     

@@ -21,7 +21,7 @@ public class GroundTile : MonoBehaviour
 
     private void Update()
     {
-        transform.position += Vector3.back * (Time.deltaTime * GameManager.Instance.tileSpeed);
+        transform.position += Vector3.back * (Time.deltaTime * GameSettings.Instance.gameSettings.tileSpeed);
         
         if (!(transform.position.z < -10f)) return;
         

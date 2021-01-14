@@ -26,6 +26,7 @@ public class Coin : MonoBehaviour
 
         // Add to the player's score
         FindObjectOfType<GameManager>().IncrementScore();
+        GetComponent<AudioSource>()?.Play();
 
         Tween.LocalScale(transform, Vector3.zero, 0.3f, 0, disappearAnimCurve, completeCallback: () => Destroy(gameObject));
     }

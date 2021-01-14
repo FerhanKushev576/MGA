@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
 
     public event PlayerDiedDelegate PlayerDied;
 
+    private AudioSource _source;
+
+    [SerializeField] private AudioClip jump;
+    [SerializeField] private AudioClip death;
+
     private void FixedUpdate()
     {
         if (!_alive) return;
@@ -33,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         _animator = GetComponent<Animator>();
         _speed = GameSettings.Instance.gameSettings.horizontalSpeed;
         _jumpForce = GameSettings.Instance.gameSettings.jumpForce;
+        _source = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -43,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up*_jumpForce,ForceMode.VelocityChange);
             _animator.SetTrigger(Jump);
+            _source.PlayOneShot(jump);
         }
 
         _animator.SetFloat(RunSpeed, _speed/5);
@@ -52,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _alive = false; 
         _animator.SetTrigger(Fall);
+        _source.PlayOneShot(death);
         PlayerDied?.Invoke();
     }
 

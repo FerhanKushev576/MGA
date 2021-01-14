@@ -17,4 +17,8 @@ public class GameSettings_SO : ScriptableObject
     // Player
     public float jumpForce;
     public float horizontalSpeed;
+    
+    // Coin
+    public float chanceToBeGolden = 0.2f;
+    public int worthOfGolden = 5;
 }

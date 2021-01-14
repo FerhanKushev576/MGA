@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text scoreText;
 
     private AnimationCurve scoreBreathAnimCurve;
+
+    public delegate void IncreaseDifficultyDelegate(float newSpeed);
+
+    public event IncreaseDifficultyDelegate IncreaseDifficulty;
+
+    private float _gameSpeed;
     
     private void Start()
     {
@@ -25,15 +31,16 @@ public class GameManager : MonoBehaviour
                 new Keyframe(1, 0)
             }
         };
+        _gameSpeed = GameSettings.Instance.gameSettings.tileSpeed;
     }
 
-    public void IncrementScore()
+    public void IncrementScore(int score)
     {
-        _score++;
+        _score+=score;
         scoreText.text = _score.ToString();
         Tween.LocalScale(scoreText.transform, Vector3.one, scoreText.transform.localScale * 1.5f, 0.5f, 0, scoreBreathAnimCurve);
-        // Increase the player's speed
-        _playerMovement.IncreaseDifficulty(GameSettings.Instance.gameSettings.speedIncreasePerPoint);
+        _gameSpeed += _gameSpeed * GameSettings.Instance.gameSettings.speedIncreasePerPoint;
+        IncreaseDifficulty?.Invoke(_gameSpeed);
     }
 
     void Restart()

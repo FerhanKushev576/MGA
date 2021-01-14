@@ -63,10 +63,5 @@ public class PlayerMovement : MonoBehaviour
         PlayerDied?.Invoke();
     }
 
-    public void IncreaseDifficulty(float speedDelta)
-    {
-        _speed += speedDelta;
-    }
 
-    
 }

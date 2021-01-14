@@ -13,7 +13,7 @@ public class GameSettings : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = GameObject.FindObjectOfType<GameSettings>();
+                _instance = FindObjectOfType<GameSettings>();
 
                 //Tell unity not to destroy this object when loading a new scene!
                 DontDestroyOnLoad(_instance.gameObject);

@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Pixelplacement;
+using Random = UnityEngine.Random;
 
 public class Coin : MonoBehaviour
 {
@@ -9,6 +11,17 @@ public class Coin : MonoBehaviour
     [SerializeField] float turnSpeed = 90f;
 
     [SerializeField] private AnimationCurve disappearAnimCurve;
+
+    private int _worth = 1;
+
+    private void Awake()
+    {
+        if (Random.Range(0f, 1f) <= GameSettings.Instance.gameSettings.chanceToBeGolden)
+        {
+            GetComponentInChildren<MeshRenderer>().material.color = Color.yellow;
+            _worth = GameSettings.Instance.gameSettings.worthOfGolden;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,7 +38,7 @@ public class Coin : MonoBehaviour
         }
 
         // Add to the player's score
-        FindObjectOfType<GameManager>().IncrementScore();
+        FindObjectOfType<GameManager>().IncrementScore(_worth);
         GetComponent<AudioSource>()?.Play();
 
         Tween.LocalScale(transform, Vector3.zero, 0.3f, 0, disappearAnimCurve, completeCallback: () => Destroy(gameObject));

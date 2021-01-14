@@ -21,6 +21,7 @@ public class GroundTile : MonoBehaviour
         _bounds = GetComponent<Collider>().bounds;
         speed = GameSettings.Instance.gameSettings.tileSpeed;
         FindObjectOfType<PlayerMovement>().PlayerDied += () => Tween.Value(speed,0,(f => speed = f),2f,0);
+        FindObjectOfType<GameManager>().IncreaseDifficulty += newSpeed => speed = newSpeed;
     }
 
     private void Update()

@@ -1,4 +1,5 @@
-﻿using Pixelplacement;
+﻿using System;
+using Pixelplacement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -11,9 +12,7 @@ public class GameManager : MonoBehaviour
 
     private AnimationCurve scoreBreathAnimCurve;
 
-    public delegate void IncreaseDifficultyDelegate(float newSpeed);
-
-    public event IncreaseDifficultyDelegate IncreaseDifficulty;
+    public Action<float> IncreaseDifficulty;
 
     private float _gameSpeed;
     

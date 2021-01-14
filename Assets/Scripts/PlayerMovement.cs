@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,10 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private static readonly int Fall = Animator.StringToHash("Fall");
     private static readonly int Jump = Animator.StringToHash("Jump");
     private static readonly int RunSpeed = Animator.StringToHash("RunSpeed");
-
-    public delegate void PlayerDiedDelegate();
-
-    public event PlayerDiedDelegate PlayerDied;
+    
+    public Action PlayerDied;
 
     private AudioSource _source;
 

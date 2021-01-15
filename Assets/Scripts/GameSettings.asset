@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780b5191cd0d56a48906afc8c3502de9, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  speedIncreasePerPoint: 0.1
+  speedIncreasePerPoint: 0.05
   tileSpeed: 10
   startingEmptyTiles: 3
   mapSize: 15
   jumpForce: 5
   horizontalSpeed: 5
+  chanceToBeGolden: 0.2
+  worthOfGolden: 5

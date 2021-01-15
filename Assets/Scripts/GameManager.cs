@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     int _score;
     PlayerMovement _playerMovement;
     [SerializeField] TMP_Text scoreText;
-
     private AnimationCurve scoreBreathAnimCurve;
 
     public Action<float> IncreaseDifficulty;
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         _playerMovement = FindObjectOfType<PlayerMovement>();
         // Should probably remove if we want a game over screen, and trigger it through the UI. Would be cleaner
-        _playerMovement.PlayerDied += () => Invoke("Restart",2);
+        _playerMovement.PlayerDied += () => Invoke("Restart", 2);
         scoreBreathAnimCurve = new AnimationCurve()
         {
             keys = new[]

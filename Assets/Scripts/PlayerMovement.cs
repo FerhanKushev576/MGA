@@ -19,9 +19,19 @@ public class PlayerMovement : MonoBehaviour
     public Action PlayerDied;
 
     private AudioSource _source;
+    private ParticleSpawner _particleSpawner;
 
     [SerializeField] private AudioClip jump;
     [SerializeField] private AudioClip death;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _speed = GameSettings.Instance.gameSettings.horizontalSpeed;
+        _jumpForce = GameSettings.Instance.gameSettings.jumpForce;
+        _source = GetComponent<AudioSource>();
+        _particleSpawner = GetComponentInChildren<ParticleSpawner>();
+    }
 
     private void FixedUpdate()
     {
@@ -32,13 +42,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalMove.x = Mathf.Clamp(horizontalMove.x, -5, 5);
         rb.MovePosition(horizontalMove);
     }
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-        _speed = GameSettings.Instance.gameSettings.horizontalSpeed;
-        _jumpForce = GameSettings.Instance.gameSettings.jumpForce;
-        _source = GetComponent<AudioSource>();
-    }
+
     private void Update()
     {
         _horizontalInput = Input.GetAxis("Horizontal");
@@ -49,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.up*_jumpForce,ForceMode.VelocityChange);
             _animator.SetTrigger(Jump);
             _source.PlayOneShot(jump);
+            _particleSpawner.DoSpawn(false,1);
         }
 
         _animator.SetFloat(RunSpeed, _speed/5);
@@ -59,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         _alive = false; 
         _animator.SetTrigger(Fall);
         _source.PlayOneShot(death);
+        _particleSpawner.DoSpawn(false);
         PlayerDied?.Invoke();
     }
 

@@ -13,6 +13,8 @@ public class Coin : MonoBehaviour
     [SerializeField] private AnimationCurve disappearAnimCurve;
 
     private int _worth = 1;
+    private bool _isGold;
+    private ParticleSpawner _particleSpawner;
 
     private void Awake()
     {
@@ -20,7 +22,12 @@ public class Coin : MonoBehaviour
         {
             GetComponentInChildren<MeshRenderer>().material.color = Color.yellow;
             _worth = GameSettings.Instance.gameSettings.worthOfGolden;
+            _isGold = true;
         }
+
+        _particleSpawner = GetComponentInChildren<ParticleSpawner>();
+        
+        _particleSpawner.DoSpawn(true,_isGold ? 1 : 0);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -12,10 +12,19 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Player")) return;
+        
+        if (!collision.gameObject.GetComponent<PlayerMovement>().isInvulnerable)
         {
             // Kill the player
             _playerMovement.Die();
+        }
+        else
+        {
+            GetComponent<ParticleSpawner>().DoSpawn(true);
+            GetComponent<AudioSource>().Play();
+            GetComponent<Collider>().enabled = false;
+            GetComponentInChildren<Renderer>().enabled = false;
         }
     }
 }

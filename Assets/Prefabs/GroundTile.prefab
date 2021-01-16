@@ -626,8 +626,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resetPosition: {x: 0, y: 0, z: 0}
-  coinPrefab: {fileID: 745938600270346201, guid: 8336019b82cf22942b9bec99be1f3edd,
-    type: 3}
+  collectiblePrefab:
+  - {fileID: 745938600270346201, guid: 8336019b82cf22942b9bec99be1f3edd, type: 3}
+  - {fileID: 5142326507405380492, guid: d084441455d3ffc49ba064f806d8f535, type: 3}
   obstaclePrefab:
   - {fileID: 5538209252483200393, guid: ed7ffaef9ac702043a956bc23eeb6048, type: 3}
   - {fileID: 5538209252483200393, guid: 7cb92fdcd47138f439e7d2ced973e313, type: 3}

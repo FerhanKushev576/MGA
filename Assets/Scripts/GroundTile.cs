@@ -7,7 +7,7 @@ public class GroundTile : MonoBehaviour
 {
 
     public Vector3 resetPosition;
-    [SerializeField] GameObject coinPrefab;
+    [SerializeField] GameObject[] collectiblePrefab;
     [SerializeField] GameObject[] obstaclePrefab;
     [SerializeField] private List<Transform> obstacleSpawnLocations;
     [SerializeField] private List<RandomMeshAtStart> scenerySpawners;
@@ -59,10 +59,10 @@ public class GroundTile : MonoBehaviour
 
     void SpawnCoins()
     {
-        var coinsToSpawn = Random.Range(0,6);
+        var coinsToSpawn = Random.Range(0,3);
         for (var i = 0; i < coinsToSpawn; i++)
         {
-            _population.Add(Instantiate(coinPrefab,GetRandomPointOnTile(), Quaternion.identity, transform));
+            _population.Add(Instantiate(collectiblePrefab[Random.Range(0,collectiblePrefab.Length)],GetRandomPointOnTile(), Quaternion.identity, transform));
         }
     }
 

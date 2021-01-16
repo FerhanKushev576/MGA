@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip jump;
     [SerializeField] private AudioClip death;
 
+    public bool isInvulnerable;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -58,6 +60,16 @@ public class PlayerMovement : MonoBehaviour
 
         _animator.SetFloat(RunSpeed, _speed/5);
     }
+
+    public void StartInvulnerability()
+    {
+        if (isInvulnerable) return;
+        
+        isInvulnerable = true;
+        Invoke(nameof(ResetInvulnerability), GameSettings.Instance.gameSettings.invulnerabilityTime);
+    }
+
+    void ResetInvulnerability() => isInvulnerable = false;
 
     public void Die()
     {
